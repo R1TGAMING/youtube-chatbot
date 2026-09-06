@@ -1,12 +1,21 @@
-from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
-import streamlit as st
 from dotenv import load_dotenv
-import os
 from tools import video_context, process_youtube_video
 from core import get_agent
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
+import uvicorn
+import os
+import asyncio
 
 load_dotenv()
+
+
+if os.environ.get("OPENAI_API_KEY") is None:
+    print("API KEY is not available")
+
+app = FastAPI(debug=True)
 
 ## SYSTEM PROMPT
 SYSTEM_PROMPT = """
@@ -18,49 +27,56 @@ Tools:
     video_context -> dict = Get context from youtube video based on query. Return of the context 
 """
 
+agent = get_agent(
+    system_prompt=SYSTEM_PROMPT, tools=[video_context, process_youtube_video]
+)
 
-def main():
-    # Check the environment
-    if os.environ.get("OPENAI_API_KEY") is None:
-        print("API KEY is not available")
 
-    # Agent
-    llm = ChatOpenAI(base_url=os.environ.get("OPENAI_BASE_URL"), model="cx/gpt-5.5")
+class ChatRequest(BaseModel):
+    text: str
 
-    agent = get_agent(
-        llm=llm,
-        system_prompt=SYSTEM_PROMPT,
-        tools=[process_youtube_video, video_context],
-    )
 
-    st.title("Youtube Chatbot")
+class ChatResponse(BaseModel):
+    status_code: int
+    status: str
+    text: str
 
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
 
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-
-    if prompt := st.chat_input(placeholder="Chat here.."):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-
-        with st.chat_message("user"):
-            st.markdown(prompt)
-
-        with st.chat_message("assistant"):
-            with st.spinner("Generating..."):
-                response = agent.invoke(
-                    {"messages": [HumanMessage(prompt)]},
-                    {"configurable": {"thread_id": "user"}},
-                )
-
-                st.markdown(response["messages"][-1].content)
-
-        st.session_state.messages.append(
-            {"role": "assistant", "content": response["messages"][-1].content}
+@app.post("/chat", response_model=ChatResponse)
+def chat(chat: ChatRequest):
+    try:
+        response = agent.invoke(
+            {"messages": [HumanMessage(chat.text)]},
+            config={"configurable": {"thread_id": "user"}},
         )
+
+        return ChatResponse(
+            text=response["messages"][-1].content, status="success", status_code=200
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/chat/stream")
+async def chat_strem(chat: ChatRequest):
+    try:
+        stream = agent.stream_events(
+            {"messages": [HumanMessage(chat.text)]},
+            config={"configurable": {"thread_id": "user"}},
+            version="v3",
+        )
+
+        async def generate_stream():
+            for message in stream.messages:
+                for token in message.text:
+                    yield token
+                    await asyncio.sleep(0.5)
+
+        return StreamingResponse(generate_stream(), media_type="text/plain")
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 if __name__ == "__main__":
-    main()
+    uvicorn.run("main:app", host="127.0.0.1", reload=True)
