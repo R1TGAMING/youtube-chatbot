@@ -1,122 +1,285 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { BackgroundGradient } from "#components/ui/gradient";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink, faMessage, faPaste } from "@fortawesome/free-solid-svg-icons";
+import Button from "./components/Button";
+import Card from "#components/Card";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <main className="w-full h-full bg-slate-50">
+      <section className="flex flex-col min-h-screen justify-center items-center px-2">
+        <BackgroundGradient className="" />
+        <div className="flex flex-col gap-6 text-center z-1">
+          <h1 className="text-6xl font-black">
+            Tanya Jawab & Ringkas Video{" "}
+            <span className="text-red-400">Youtube dalam Hitungan Detik</span>
+          </h1>
+          <p className="text-xl">
+            Masukan satu atau lebih url youtube dan buka sesi pertanyaan dengan
+            chatbot.
+          </p>
+          <div className="flex justify-center gap-5">
+            <Button
+              text="Coba Sekarang"
+              textColor="white"
+              color="red"
+              className="w-52 h-14 hover:bg-red-600 transition-all duration-300 ease-in-out"
+            ></Button>
+
+            <Button
+              text="Cara Kerja"
+              borderColor="red"
+              textColor="red"
+              color="transparent"
+              className="w-52 h-14 hover:border-red-600 hover:text-red-600 transition-all duration-300 ease-in-out "
+            ></Button>
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
+      </section>
+
+      <section className="min-h-screen bg-slate-200 flex flex-col justify-evenly p-12">
+        <div className="text-center flex flex-col gap-4">
+          <p className="text-xl text-red-400 font-bold">Cara Kerja</p>
+          <h1 className="text-6xl font-extrabold">
+            Bagaimana Sih Cara Kerjanya?
+          </h1>
           <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+            Tanpa instalasi rumit, tanpa konfigurasi API keys. Cukup buka
+            browser dan mulai berdiskusi dengan video.{" "}
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+        <div className="flex gap-2 justify-around">
+          <Card className="p-24 flex flex-col gap-6 text-center w-lg">
+            <div className="bg-slate-200 p-6 rounded-4xl ">
+              <FontAwesomeIcon
+                icon={faLink}
+                className="text-4xl text-red-400"
+              />
+            </div>
+            <h1 className="font-bold text-xl"> Salin URL Video YouTube </h1>
+            <p className="text-bold text-slate-400">
+              {" "}
+              Buka video YouTube apa pun (podcast, webinar, materi kursus, atau
+              interview) lalu salin tautan URL browser.{" "}
+            </p>
+          </Card>
+          <Card className="p-24 flex flex-col gap-6 text-center w-lg">
+            <div className="bg-slate-200 p-6 rounded-4xl ">
+              <FontAwesomeIcon
+                icon={faPaste}
+                className="text-4xl text-red-400"
+              />
+            </div>
+            <h1 className="font-bold text-xl"> Tempel di Chatbot </h1>
+            <p className="text-bold text-slate-400">
+              {" "}
+              Masukkan tautan ke bilah pencarian cerdas kami. Mesin AI akan
+              langsung mengekstrak dan membedah transkrip dalam sekejap.
+            </p>
+          </Card>
+          <Card className="p-24 flex flex-col gap-6 text-center w-lg">
+            <div className="bg-slate-200 p-6 rounded-4xl">
+              <FontAwesomeIcon
+                icon={faMessage}
+                className="text-4xl text-red-400"
+              />
+            </div>
+            <h1 className="font-bold text-xl">
+              {" "}
+              Mulai Chat & Dapatkan Jawaban{" "}
+            </h1>
+            <p className="text-bold text-slate-400">
+              {" "}
+              ajukan pertanyaan spesifik dengan referensi timestamp yang dapat
+              langsung diputar.
+            </p>
+          </Card>
         </div>
       </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <section className="min-h-screen flex flex-col gap-12 p-12">
+        <div className="text-left flex flex-col gap-4">
+          <p className="text-xl text-red-400 font-bold">Tools</p>
+          <h1 className="text-6xl font-extrabold">
+            Alat apa saja yang dipakai?
+          </h1>
+        </div>
+
+        <div className="grid grid-cols-4 gap-y-12">
+          <Card className="bg-slate-200! rounded-2xl text-black w-xs p-12 flex flex-col gap-2 items-center ">
+            <svg
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              id="Langchain--Streamline-Simple-Icons"
+              height="128"
+              width="128"
+            >
+              <desc>Langchain Streamline Icon: https://streamlinehq.com</desc>
+              <title>LangChain</title>
+              <path
+                d="M6.0988 5.9175C2.7359 5.9175 0 8.6462 0 12s2.736 6.0825 6.0988 6.0825h11.8024C21.2641 18.0825 24 15.3538 24 12s-2.736 -6.0825 -6.0988 -6.0825ZM5.9774 7.851c0.493 0.0124 1.02 0.2496 1.273 0.6228 0.3673 0.4592 0.4778 1.0668 0.8944 1.4932 0.5604 0.6118 1.199 1.1505 1.7161 1.802 0.4892 0.5954 0.8386 1.2937 1.1436 1.9975 0.1244 0.2335 0.1257 0.5202 0.31 0.7197 0.0908 0.1204 0.5346 0.4483 0.4383 0.5645 0.0555 0.1204 0.4702 0.286 0.3263 0.4027 -0.1944 0.04 -0.4129 0.0476 -0.5616 -0.1074 -0.0549 0.126 -0.183 0.0596 -0.2819 0.0432a4 4 0 0 0 -0.025 0.0736c-0.3288 0.0219 -0.5754 -0.3126 -0.732 -0.565 -0.3111 -0.168 -0.6642 -0.2702 -0.982 -0.446 -0.0182 0.2895 0.0452 0.6485 -0.231 0.8353 -0.014 0.5565 0.8436 0.0656 0.9222 0.4804 -0.061 0.0067 -0.1286 -0.0095 -0.1774 0.0373 -0.2239 0.2172 -0.4805 -0.1645 -0.7385 -0.007 -0.3464 0.174 -0.3808 0.3161 -0.8096 0.352 -0.0237 -0.0359 -0.0143 -0.0592 0.0059 -0.0811 0.1207 -0.1399 0.1295 -0.3046 0.3356 -0.3643 -0.2122 -0.0334 -0.3899 0.0833 -0.5686 0.1757 -0.2323 0.095 -0.2304 -0.2141 -0.5878 0.0164 -0.0396 -0.0322 -0.0208 -0.0615 0.0018 -0.0864 0.0908 -0.1107 0.2102 -0.127 0.345 -0.1208 -0.663 -0.3686 -0.9751 0.4507 -1.2813 0.0432 -0.092 0.0243 -0.1265 0.1068 -0.1845 0.1652 -0.05 -0.0548 -0.0123 -0.1212 -0.0099 -0.1857 -0.0598 -0.028 -0.1356 -0.041 -0.1179 -0.1366 -0.1171 -0.0395 -0.1988 0.0295 -0.286 0.0952 -0.0787 -0.0608 0.0532 -0.1492 0.0776 -0.2125 0.0702 -0.1216 0.23 -0.025 0.3111 -0.1126 0.2306 -0.1308 0.552 0.0814 0.8155 0.0455 0.203 0.0255 0.4544 -0.1825 0.3526 -0.39 -0.2171 -0.2767 -0.179 -0.6386 -0.1839 -0.9695 -0.0268 -0.1929 -0.491 -0.4382 -0.6252 -0.6462 -0.1659 -0.1873 -0.295 -0.4047 -0.4243 -0.6182 -0.4666 -0.9008 -0.3198 -2.0584 -0.9077 -2.8947 -0.266 0.1466 -0.6125 0.0774 -0.8418 -0.119 -0.1238 0.1125 -0.1292 0.2598 -0.139 0.4161 -0.297 -0.2962 -0.2593 -0.8559 -0.022 -1.1855 0.0969 -0.1302 0.2127 -0.2373 0.342 -0.3316 0.0292 -0.0213 0.0391 -0.0419 0.0385 -0.0747 0.1174 -0.5267 0.5764 -0.7391 1.0694 -0.7267m12.4071 0.46c0.5575 0 1.0806 0.2159 1.474 0.6082s0.61 0.9145 0.61 1.4704c0 0.556 -0.2167 1.078 -0.61 1.4698v0.0006l-0.902 0.8995a2.08 2.08 0 0 1 -0.8597 0.5166l-0.0164 0.0047 -0.0058 0.0164a2.05 2.05 0 0 1 -0.474 0.7308l-0.9018 0.8995c-0.3934 0.3924 -0.917 0.6083 -1.4745 0.6083s-1.0806 -0.216 -1.474 -0.6083c-0.813 -0.8107 -0.813 -2.1294 0 -2.9402l0.9019 -0.8995a2.056 2.056 0 0 1 0.858 -0.5143l0.017 -0.0053 0.0058 -0.0158a2.07 2.07 0 0 1 0.4752 -0.7337l0.9018 -0.8995c0.3934 -0.3924 0.9171 -0.6083 1.4745 -0.6083zm0 0.8965a1.18 1.18 0 0 0 -0.8388 0.3462l-0.9018 0.8995a1.181 1.181 0 0 0 -0.3427 0.9252l0.0053 0.0572c0.0323 0.2652 0.149 0.5044 0.3374 0.6917 0.13 0.1296 0.2733 0.2114 0.4471 0.2686a0.9 0.9 0 0 1 0.014 0.1582 0.884 0.884 0 0 1 -0.2609 0.6304l-0.0554 0.0554c-0.3013 -0.1028 -0.5525 -0.253 -0.7794 -0.4792a2.06 2.06 0 0 1 -0.5761 -1.0968l-0.0099 -0.0578 -0.0461 0.0368a1.1 1.1 0 0 0 -0.0876 0.0794l-0.9024 0.8995c-0.4623 0.461 -0.4623 1.212 0 1.673 0.2311 0.2305 0.535 0.346 0.8394 0.3461 0.3043 0 0.6077 -0.1156 0.8388 -0.3462l0.9019 -0.8995c0.4623 -0.461 0.4623 -1.2113 0 -1.673a1.17 1.17 0 0 0 -0.4367 -0.2749 1 1 0 0 1 -0.014 -0.1611c0 -0.2591 0.1023 -0.505 0.2901 -0.6923 0.3019 0.1028 0.57 0.2694 0.7962 0.495 0.3007 0.2999 0.4994 0.679 0.5756 1.0968l0.0105 0.0578 0.0455 -0.0373a1.1 1.1 0 0 0 0.0887 -0.0794l0.902 -0.8996c0.4622 -0.461 0.4628 -1.2124 0 -1.6735a1.18 1.18 0 0 0 -0.8395 -0.3462Zm-9.973 5.1567 -0.0006 0.0006c-0.0793 0.3078 -0.1048 0.8318 -0.506 0.847 -0.033 0.1776 0.1228 0.2445 0.2655 0.1874 0.141 -0.0645 0.2081 0.0508 0.2557 0.1657 0.2177 0.0317 0.5394 -0.0725 0.5516 -0.3298 -0.325 -0.1867 -0.4253 -0.5418 -0.5662 -0.8709"
+                fill="#00000"
+                stroke-width="1"
+              ></path>
+            </svg>
+            <h1 className="font-black text-lg">Langchain</h1>
+          </Card>
+          <Card className="bg-slate-200! rounded-2xl text-black w-xs p-12 flex flex-col gap-2 items-center ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              id="Fastapi-Icon--Streamline-Svg-Logos"
+              height="128"
+              width="128"
+            >
+              <desc>
+                Fastapi Icon Streamline Icon: https://streamlinehq.com
+              </desc>
+              <path
+                fill="#009688"
+                d="M12.000025 0.25C5.512775 0.25 0.25 5.512775 0.25 12s5.262775 11.75 11.750025 11.75C18.487225 23.75 23.75 18.487225 23.75 12S18.487225 0.25 12.000025 0.25Zm-0.61225 21.168825V14.0486H7.2906l5.88675 -11.467425v7.370225H17.1215L11.387775 21.418825Z"
+                stroke-width="0.25"
+              ></path>
+            </svg>
+            <h1 className="font-black text-lg">FastAPI</h1>
+          </Card>
+          <Card className="bg-slate-200! rounded-2xl text-black w-xs p-12 flex flex-col gap-2 items-center ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              id="Chroma--Streamline-Svg-Logos"
+              height="128"
+              width="128"
+            >
+              <desc>Chroma Streamline Icon: https://streamlinehq.com</desc>
+              <path
+                fill="#ffde2d"
+                d="M15.916575 19.52c4.326225 0 7.833325 -3.3668 7.833325 -7.519975 0 -4.153175 -3.5071 -7.519975 -7.833325 -7.519975 -4.326225 0 -7.833325 3.3668 -7.833325 7.519975 0 4.153175 3.5071 7.519975 7.833325 7.519975Z"
+                stroke-width="0.25"
+              ></path>
+              <path
+                fill="#327eff"
+                d="M8.083325 19.52c4.326225 0 7.833325 -3.3668 7.833325 -7.519975 0 -4.153175 -3.5071 -7.519975 -7.833325 -7.519975C3.7571 4.48005 0.25 7.84685 0.25 12.000025 0.25 16.1532 3.7571 19.52 8.083325 19.52Z"
+                stroke-width="0.25"
+              ></path>
+              <path
+                fill="#ff6446"
+                d="M15.916625 12.000025c0 4.1532 -3.507125 7.519925 -7.833375 7.519925V12.000025h7.833375Zm-7.833375 0c0 -4.153175 3.5071 -7.519975 7.833375 -7.519975v7.519975H8.08325Z"
+                stroke-width="0.25"
+              ></path>
+            </svg>
+            <h1 className="font-black text-lg">ChromaDB</h1>
+          </Card>
+          <Card className="bg-slate-200! rounded-2xl text-black w-xs p-12 flex flex-col gap-2 items-center ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 96 96"
+              id="Supabase-Icon--Streamline-Svg-Logos"
+              height="128"
+              width="128"
+            >
+              <desc>
+                Supabase Icon Streamline Icon: https://streamlinehq.com
+              </desc>
+              <path
+                fill="url(#a)"
+                d="M55.7223 93.4383c-2.4014 3.0241-7.2705 1.3672-7.3284-2.4942l-.846-56.4773h37.9752c6.8784 0 10.7146 7.9445 6.4375 13.3315l-36.2383 45.64Z"
+              ></path>
+              <path
+                fill="url(#b)"
+                fill-opacity=".2"
+                d="M55.7223 93.4383c-2.4014 3.0241-7.2705 1.3672-7.3284-2.4942l-.846-56.4773h37.9752c6.8784 0 10.7146 7.9445 6.4375 13.3315l-36.2383 45.64Z"
+              ></path>
+              <path
+                fill="#3ecf8e"
+                d="M40.278 2.56189c2.4014-3.024436 7.2705-1.36726 7.3284 2.49417l.3707 56.47724h-37.5c-6.87853 0-10.714819-7.9446-6.43753-13.3315L40.278 2.56189Z"
+              ></path>
+              <defs>
+                <linearGradient
+                  id="a"
+                  x1="1011.58"
+                  x2="3189.12"
+                  y1="1286.71"
+                  y2="2199.97"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#249361"></stop>
+                  <stop offset="1" stop-color="#3ecf8e"></stop>
+                </linearGradient>
+                <linearGradient
+                  id="b"
+                  x1="139.561"
+                  x2="1537.44"
+                  y1="-762.054"
+                  y2="1869.38"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop></stop>
+                  <stop offset="1" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+            <h1 className="font-black text-lg">Supabase</h1>
+          </Card>
+          <Card className="bg-slate-200! rounded-2xl text-black w-xs p-12 flex flex-col gap-2 items-center ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 96 96"
+              id="Vitejs--Streamline-Svg-Logos"
+              height="128"
+              width="128"
+            >
+              <desc>Vitejs Streamline Icon: https://streamlinehq.com</desc>
+              <path
+                fill="url(#a)"
+                d="M94.6298 14.9117 50.5288 93.772c-.9105 1.6282-3.2498 1.6378-4.1741.0175L1.37927 14.9193c-1.006863-1.7657.50297-3.9044 2.50382-3.5467l44.14821 7.8912c.2816.0503.57.0499.8516-.0015l43.225-7.8784c1.9942-.3635 3.5111 1.7587 2.5219 3.5278Z"
+              ></path>
+              <path
+                fill="url(#b)"
+                d="M69.061 1.02314 36.4249 7.41805c-.5364.1051-.9336.55969-.9659 1.10523L33.4514 42.4296c-.0472.7986.6862 1.4184 1.4656 1.2387l9.0864-2.097c.8501-.1961 1.6183.5527 1.4436 1.4076l-2.6995 13.2192c-.1817.8897.6536 1.6505 1.5224 1.3866l5.6122-1.7051c.87-.2642 1.706.4988 1.522 1.3892L47.114 78.0332c-.2685 1.2988 1.4592 2.0071 2.1797.8935l.4812-.7437 26.5937-53.0724c.4454-.8886-.3226-1.9019-1.2986-1.7135l-9.3528 1.8051c-.879.1694-1.6268-.6491-1.3787-1.509L70.443 2.53134c.2483-.86136-.5022-1.680582-1.382-1.5082Z"
+              ></path>
+              <defs>
+                <linearGradient
+                  id="a"
+                  x1="-76.685"
+                  x2="4679.61"
+                  y1="651.533"
+                  y2="7110.95"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#41d1ff"></stop>
+                  <stop offset="1" stop-color="#bd34fe"></stop>
+                </linearGradient>
+                <linearGradient
+                  id="b"
+                  x1="1900.75"
+                  x2="2879.19"
+                  y1="176.935"
+                  y2="6888.92"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#ffea83"></stop>
+                  <stop offset=".083" stop-color="#ffdd35"></stop>
+                  <stop offset="1" stop-color="#ffa800"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+            <h1 className="font-black text-lg">Vite + React</h1>
+          </Card>
+        </div>
+      </section>
+
+      <footer className="p-8 bg-slate-200 w-full items-center flex flex-col ">
+        <p className="text-slate-400">Created by ipii</p>
+      </footer>
+    </main>
+  );
 }
 
-export default App
+export default App;
