@@ -3,6 +3,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
+import os
 
 
 def embeddings() -> HuggingFaceEmbeddings:
@@ -20,7 +21,12 @@ def chroma(embeddings_model: HuggingFaceEmbeddings) -> Chroma:
     )
 
 
-def get_agent(llm: ChatOpenAI, tools: list[any], system_prompt: str):
+def get_agent(tools: list[any], system_prompt: str):
+    llm = ChatOpenAI(
+        base_url=os.environ.get("OPENAI_BASE_URL"),
+        model=os.environ.get("OPENAI_BASE_MODEL"),
+    )
+
     return create_agent(
         model=llm,
         system_prompt=system_prompt,
