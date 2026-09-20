@@ -4,8 +4,8 @@ if (
   !import.meta.env.VITE_SUPABASE_URL ||
   !import.meta.env.VITE_SUPABASE_ANON_KEY
 ) {
-  console.log(
-    "Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY inn .env files",
+  console.error(
+    "Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file",
   );
 }
 
