@@ -8,6 +8,7 @@ from pydantic import BaseModel
 import uvicorn
 import os
 import asyncio
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -16,6 +17,11 @@ if os.environ.get("OPENAI_API_KEY") is None:
     print("API KEY is not available")
 
 app = FastAPI(debug=True)
+
+
+app.add_middleware(
+    CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
+)
 
 ## SYSTEM PROMPT
 SYSTEM_PROMPT = """
