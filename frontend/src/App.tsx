@@ -1,14 +1,92 @@
-import { BackgroundGradient } from "#components/ui/gradient";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink, faMessage, faPaste } from "@fortawesome/free-solid-svg-icons";
 import Button from "./components/Button";
-import Card from "#components/Card";
+import Card from "./components/Card";
+import { Link, useNavigate } from "react-router";
+import { BackgroundGradient } from "#components/ui/gradient";
+import { supabase } from "./utils/supabase";
+import { useEffect, useState } from "react";
 
 function App() {
+  const navigate = useNavigate();
+  const [session, setSession] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (data.session) {
+        setSession(true);
+      }
+
+      if (error) {
+        console.error(error);
+      }
+    };
+
+    checkSession();
+  }, [navigate]);
+
   return (
     <main className="w-full h-full bg-slate-50">
-      <section className="flex flex-col min-h-screen justify-center items-center px-2">
-        <BackgroundGradient className="" />
+      <header className="absolute left-0 right-0 z-50 flex justify-center py-8 px-12 items-center">
+        <ul className="flex gap-24 items-center justify-between ">
+          <li>
+            <a
+              href="
+              #cara-kerja
+            "
+              className="hover:text-red-400 transition-all duration-300 ease-in-out"
+            >
+              Cara Kerja
+            </a>
+          </li>
+          <li>
+            <a
+              href="#tools"
+              className="hover:text-red-400 transition-all duration-300 ease-in-out"
+            >
+              Tools
+            </a>
+          </li>
+          {session ? (
+            <li>
+              <Link
+                to={"/dashboard"}
+                className="hover:text-red-400 transition-all duration-300 ease-in-out"
+              >
+                Dashboard
+              </Link>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link
+                  to={"/login"}
+                  className="hover:text-red-400 transition-all duration-300 ease-in-out"
+                >
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/register"}
+                  className="hover:text-red-400 transition-all duration-300 ease-in-out"
+                >
+                  Register
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+      </header>
+
+      {/* Hero Section */}
+      <section
+        className="flex flex-col min-h-screen justify-center items-center px-2"
+        id="hero"
+      >
+        <BackgroundGradient />
         <div className="flex flex-col gap-6 text-center z-1">
           <h1 className="text-6xl font-black">
             Tanya Jawab & Ringkas Video{" "}
@@ -37,7 +115,11 @@ function App() {
         </div>
       </section>
 
-      <section className="min-h-screen bg-slate-200 flex flex-col justify-evenly p-12">
+      {/* Cara Kerja Section */}
+      <section
+        className="min-h-screen bg-slate-200 flex flex-col justify-evenly p-12 "
+        id="cara-kerja"
+      >
         <div className="text-center flex flex-col gap-4">
           <p className="text-xl text-red-400 font-bold">Cara Kerja</p>
           <h1 className="text-6xl font-extrabold">
@@ -98,7 +180,8 @@ function App() {
         </div>
       </section>
 
-      <section className="min-h-screen flex flex-col gap-12 p-12">
+      {/* Tools Section */}
+      <section className="min-h-screen flex flex-col gap-12 p-12" id="tools">
         <div className="text-left flex flex-col gap-4">
           <p className="text-xl text-red-400 font-bold">Tools</p>
           <h1 className="text-6xl font-extrabold">
@@ -278,6 +361,7 @@ function App() {
       <footer className="p-8 bg-slate-200 w-full items-center flex flex-col ">
         <p className="text-slate-400">Created by ipii</p>
       </footer>
+      <div></div>
     </main>
   );
 }
